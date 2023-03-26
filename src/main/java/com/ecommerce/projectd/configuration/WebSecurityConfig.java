@@ -37,7 +37,7 @@ public class WebSecurityConfig {
         this.rateLimitFilterComponent = rateLimitFilterComponent;
     }
 
-    private static final String[] AUTHORIZED_REQUEST = {"/user/reg","/file/*","/rabbit/init","/irrigation/create","/system/create"};
+    private static final String[] AUTHORIZED_REQUEST = {"/user/reg","/file/*","/rabbit/init","/irrigation/create/**","/system/create"};
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
