@@ -20,16 +20,18 @@ public class RabbitPublisherServiceImpl implements IRabbitPublisherService {
     @Override
     public void sendToRabbit(String message) {
         log.info("Message '{}', will be send...", message);
-        publisher.send(message);
+        publisher.sendToInit(message);
     }
 
     @Override
     public void sendChangeIrrigationToRabbit(Object message) {
-
+        log.info("Message '{}', will be send...", message);
+        publisher.sendToChangeIrrigation(message);
     }
 
     @Override
     public void sendChangeSystemToRabbit(Object message) {
-
+        log.info("Message '{}', will be send...", message);
+        publisher.sendToChangeSystem(message);
     }
 }
