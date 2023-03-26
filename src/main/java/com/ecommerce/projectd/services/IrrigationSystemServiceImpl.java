@@ -10,6 +10,7 @@ import com.ecommerce.projectd.entities.User;
 import com.ecommerce.projectd.entities.projection.IrrigationSystemProjection;
 import com.ecommerce.projectd.repositories.IIrrigationSystemRepository;
 import com.ecommerce.projectd.services.interfaces.IIrrigationSystemService;
+import com.ecommerce.projectd.services.interfaces.IRabbitPublisherService;
 import com.ecommerce.projectd.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +27,16 @@ public class IrrigationSystemServiceImpl implements IIrrigationSystemService {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IRabbitPublisherService rabbitPublisherService;
+
     @Override
     public BaseResponse create(CreateIrrigationSystemRequest request) {
 
         IrrigationSystem irrigationSystem= from(request);
         GetIrrigationSystemResponse response = from(repository.save(irrigationSystem));
+
+        rabbitPublisherService.sendChangeSystemToRabbit(response.getId());
         return BaseResponse.builder()
                 .data(response)
                 .message("The irrigation has been created correctly")

@@ -11,10 +11,7 @@ import com.ecommerce.projectd.entities.IrrigationSystem;
 import com.ecommerce.projectd.entities.User;
 import com.ecommerce.projectd.entities.projection.IrrigationProjection;
 import com.ecommerce.projectd.repositories.IIrrigationRepository;
-import com.ecommerce.projectd.services.interfaces.IIrrigationService;
-import com.ecommerce.projectd.services.interfaces.IIrrigationSystemService;
-import com.ecommerce.projectd.services.interfaces.ISNSService;
-import com.ecommerce.projectd.services.interfaces.IUserService;
+import com.ecommerce.projectd.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -40,6 +37,9 @@ public class IrrigationServiceImpl implements IIrrigationService {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IRabbitPublisherService rabbitPublisherService;
+
     @Override
     public BaseResponse create(CreateIrrigationRequest request) {
         Irrigation irrigation=from(request);
@@ -47,6 +47,8 @@ public class IrrigationServiceImpl implements IIrrigationService {
 
         String notificationId=snsService.sendNotificationOfIrrigation();
         add(notificationId, response);
+
+        rabbitPublisherService.sendChangeIrrigationToRabbit(response.getId());
 
         return BaseResponse.builder()
                 .data(response)
