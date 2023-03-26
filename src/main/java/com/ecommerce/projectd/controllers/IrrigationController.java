@@ -33,8 +33,9 @@ public class IrrigationController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<BaseResponse> create(@RequestBody CreateIrrigationRequest request){
+    @PostMapping("/create/{moistureState}/{previousMoistureState}/{irrigationSystemId}")
+    public ResponseEntity<BaseResponse> create(@PathVariable Integer moistureState,@PathVariable Integer previousMoistureState, @PathVariable Long irrigationSystemId ){
+        CreateIrrigationRequest request=from(moistureState, previousMoistureState, irrigationSystemId);
         BaseResponse baseResponse= service.create(request);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
@@ -48,5 +49,14 @@ public class IrrigationController {
     @GetMapping("health")
     public String health() {
         return "Ok";
+    }
+
+
+    private  CreateIrrigationRequest from(Integer moistureState,Integer previousMoistureState,  Long irrigationSystemId ){
+        CreateIrrigationRequest request= new CreateIrrigationRequest();
+        request.setMoistureState(moistureState);
+        request.setIrrigationSystemId(irrigationSystemId);
+        request.setPreviousMoistureState(previousMoistureState);
+        return  request;
     }
 }
