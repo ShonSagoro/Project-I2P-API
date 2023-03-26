@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface IIrrigationRepository extends JpaRepository<Irrigation, Long> {
-    @Query(value = "SELECT * FROM risks WHERE user_id=:userId", nativeQuery = true)
-    List<IrrigationProjection> findRisksByUserId(Long userId);
+    @Query(value = "SELECT * FROM risks WHERE irrigation_system_id=:systemId", nativeQuery = true)
+    List<IrrigationProjection> findRisksBySystemId(Long systemId);
 }

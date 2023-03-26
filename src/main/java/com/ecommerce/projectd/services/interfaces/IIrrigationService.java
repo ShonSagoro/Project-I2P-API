@@ -11,7 +11,7 @@ public interface IIrrigationService {
 
     BaseResponse list();
 
-    BaseResponse getRisksByIdUser(Long userId);
+    BaseResponse getRisksByIdSystem(Long systemId);
 
     void delete(Long id);
 }

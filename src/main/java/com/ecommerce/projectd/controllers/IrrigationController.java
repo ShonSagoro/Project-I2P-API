@@ -23,7 +23,7 @@ public class IrrigationController {
 
     @GetMapping("system/{id}/risks")
     public ResponseEntity<BaseResponse>  getRiskByIdUser(@PathVariable long id){
-        BaseResponse baseResponse= service.getRisksByIdUser(id);
+        BaseResponse baseResponse= service.getRisksByIdSystem(id);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 

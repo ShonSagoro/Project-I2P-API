@@ -85,8 +85,8 @@ public class IrrigationServiceImpl implements IIrrigationService {
     }
 
     @Override
-    public BaseResponse getRisksByIdUser(Long userId) {
-        List<GetIrrigationResponse> response=repository.findRisksByUserId(userId)
+    public BaseResponse getRisksByIdSystem(Long systemId) {
+        List<GetIrrigationResponse> response=repository.findRisksBySystemId(systemId)
                 .stream()
                 .map(this::from)
                 .collect(Collectors.toList());
