@@ -1,6 +1,7 @@
 package com.ecommerce.projectd.controllers;
 
 import com.ecommerce.projectd.controllers.dtos.request.CreateUserRequest;
+import com.ecommerce.projectd.controllers.dtos.request.LoginRequest;
 import com.ecommerce.projectd.controllers.dtos.request.UpdateUserRequest;
 import com.ecommerce.projectd.controllers.dtos.response.BaseResponse;
 import com.ecommerce.projectd.services.interfaces.IUserService;
@@ -20,9 +21,9 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/{idUser}")
-    public ResponseEntity<BaseResponse> get(@PathVariable Long idUser){
-        BaseResponse response = service.get(idUser);
+    @PostMapping("get   /email")
+    public ResponseEntity<BaseResponse> get(@RequestBody LoginRequest request){
+        BaseResponse response = service.get(request);
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 

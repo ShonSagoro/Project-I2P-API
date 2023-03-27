@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ecommerce.projectd.controllers.dtos.request.LoginRequest;
 import com.ecommerce.projectd.services.interfaces.ISNSService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,12 +34,12 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public BaseResponse get(Long idUser){
-        User user = repository.findById(idUser)
+    public BaseResponse get(LoginRequest request){
+        User user = repository.findByEmail(request.getEmail())
                 .orElseThrow(NotFoundException::new);
         return BaseResponse.builder()
                 .data(from(user))
-                .message("user for: " + idUser)
+                .message("user for: " + request.getEmail())
                 .success(true)
                 .httpStatus(HttpStatus.FOUND).build();
     }

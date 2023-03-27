@@ -12,6 +12,7 @@ import com.ecommerce.projectd.repositories.IIrrigationSystemRepository;
 import com.ecommerce.projectd.services.interfaces.IIrrigationSystemService;
 import com.ecommerce.projectd.services.interfaces.IRabbitPublisherService;
 import com.ecommerce.projectd.services.interfaces.IUserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,12 +32,12 @@ public class IrrigationSystemServiceImpl implements IIrrigationSystemService {
     private IRabbitPublisherService rabbitPublisherService;
 
     @Override
-    public BaseResponse create(CreateIrrigationSystemRequest request) {
+    public BaseResponse create(CreateIrrigationSystemRequest request){
 
         IrrigationSystem irrigationSystem= from(request);
         GetIrrigationSystemResponse response = from(repository.save(irrigationSystem));
 
-        rabbitPublisherService.sendChangeSystemToRabbit(response.getId());
+        rabbitPublisherService.sendChangeSystemToRabbit(String.valueOf(response.getUser().getId()));
         return BaseResponse.builder()
                 .data(response)
                 .message("The irrigation has been created correctly")
@@ -53,7 +54,7 @@ public class IrrigationSystemServiceImpl implements IIrrigationSystemService {
                 .data(response)
                 .message("The irrigation has been found")
                 .success(Boolean.TRUE)
-                .httpStatus(HttpStatus.FOUND).build();
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
@@ -135,5 +136,6 @@ public class IrrigationSystemServiceImpl implements IIrrigationSystemService {
         response.setUser(from(userService.getUser(projection.getUser_Id())));
         return response;
     }
+
 
 }

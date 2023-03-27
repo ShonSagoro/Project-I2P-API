@@ -2,6 +2,7 @@ package com.ecommerce.projectd.services;
 
 import com.ecommerce.projectd.components.PublisherRabbitComponent;
 import com.ecommerce.projectd.services.interfaces.IRabbitPublisherService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,13 @@ public class RabbitPublisherServiceImpl implements IRabbitPublisherService {
     }
 
     @Override
-    public void sendChangeIrrigationToRabbit(Object message) {
+    public void sendChangeIrrigationToRabbit(String message) {
         log.info("Message '{}', will be send...", message);
         publisher.sendToChangeIrrigation(message);
     }
 
     @Override
-    public void sendChangeSystemToRabbit(Object message) {
+    public void sendChangeSystemToRabbit(String message){
         log.info("Message '{}', will be send...", message);
         publisher.sendToChangeSystem(message);
     }

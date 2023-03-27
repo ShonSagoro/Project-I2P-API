@@ -12,6 +12,7 @@ import com.ecommerce.projectd.entities.User;
 import com.ecommerce.projectd.entities.projection.IrrigationProjection;
 import com.ecommerce.projectd.repositories.IIrrigationRepository;
 import com.ecommerce.projectd.services.interfaces.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -41,14 +42,14 @@ public class IrrigationServiceImpl implements IIrrigationService {
     private IRabbitPublisherService rabbitPublisherService;
 
     @Override
-    public BaseResponse create(CreateIrrigationRequest request) {
+    public BaseResponse create(CreateIrrigationRequest request){
         Irrigation irrigation=from(request);
         GetIrrigationResponse response=from(repository.save(irrigation));
 
         String notificationId=snsService.sendNotificationOfIrrigation();
         add(notificationId, response);
 
-        rabbitPublisherService.sendChangeIrrigationToRabbit(response.getId());
+        rabbitPublisherService.sendChangeIrrigationToRabbit(String.valueOf(response.getIrrigationSystemResponse().getId()));
 
         return BaseResponse.builder()
                 .data(response)
@@ -95,7 +96,7 @@ public class IrrigationServiceImpl implements IIrrigationService {
                 .data(response)
                 .message("the risks have been got by user Id")
                 .success(Boolean.TRUE)
-                .httpStatus(HttpStatus.FOUND)
+                .httpStatus(HttpStatus.OK)
                 .build();
     }
 
@@ -168,5 +169,6 @@ public class IrrigationServiceImpl implements IIrrigationService {
     private DateTimeFormatter getFormat(){
         return DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
     }
+
 
 }

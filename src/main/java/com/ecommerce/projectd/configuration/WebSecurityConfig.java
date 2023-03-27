@@ -37,7 +37,8 @@ public class WebSecurityConfig {
         this.rateLimitFilterComponent = rateLimitFilterComponent;
     }
 
-    private static final String[] AUTHORIZED_REQUEST = {"/user/reg","/file/*","/rabbit/init","/irrigation/create/**","/system/user/**","/irrigation/system/**","/system/create"};
+    private static final String[] AUTHORIZED_REQUEST = {"/user/reg","/file/**","/rabbit/init","/irrigation/create/**","/system/user/**","/irrigation/system/**","/system/create"};
+
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -45,8 +46,7 @@ public class WebSecurityConfig {
             @Override
             public void addCorsMappings(@NotNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://127.0.0.1:5173","http://localhost:5173"
-                        )
+                        .allowedOrigins("http://127.0.0.1:5173","http://localhost:5173", "http://127.0.0.1:4004", "http://127.0.0.1:4002", "http://127.0.0.1:4003")
                         .allowedMethods("GET","POST","PUT","DELETE","OPTIONS","HEAD")
                         .allowedHeaders("*")
                         .exposedHeaders("*");

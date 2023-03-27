@@ -1,5 +1,7 @@
 package com.ecommerce.projectd.components;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableRabbit
 public class PublisherRabbitComponent {
+
+    private ObjectMapper objectMapper;
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
@@ -26,13 +30,15 @@ public class PublisherRabbitComponent {
 
 
 
-    public void sendToInit(Object message){
+    public void sendToInit(String message){
         rabbitTemplate.convertAndSend(queueInit, message);
     }
-    public void sendToChangeSystem(Object message){
+    public void sendToChangeSystem(String message) {
         rabbitTemplate.convertAndSend(queueChangeSystem, message);
     }
-    public void sendToChangeIrrigation(Object message){
+    public void sendToChangeIrrigation(String message){
         rabbitTemplate.convertAndSend(queueChangeIrrigation, message);
     }
+
+
 }
