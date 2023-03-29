@@ -46,7 +46,7 @@ public class WebSecurityConfig {
             @Override
             public void addCorsMappings(@NotNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://127.0.0.1:5173","http://localhost:5173", "http://127.0.0.1:4004", "http://127.0.0.1:4002", "http://127.0.0.1:4003")
+                        .allowedOrigins("http://127.0.0.1:5173","http://localhost:5173","http://52.14.12.151:80", "http://3.139.79.141:4004", "http://18.223.211.84:4002", "http://52.15.116.105:4003")
                         .allowedMethods("GET","POST","PUT","DELETE","OPTIONS","HEAD")
                         .allowedHeaders("*")
                         .exposedHeaders("*");

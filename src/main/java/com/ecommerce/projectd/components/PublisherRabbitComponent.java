@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @EnableRabbit
 public class PublisherRabbitComponent {
 
-    private ObjectMapper objectMapper;
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
