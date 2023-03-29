@@ -1,8 +1,5 @@
 package com.ecommerce.projectd.components;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

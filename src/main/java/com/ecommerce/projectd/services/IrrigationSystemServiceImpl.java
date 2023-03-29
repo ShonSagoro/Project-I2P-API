@@ -12,7 +12,6 @@ import com.ecommerce.projectd.repositories.IIrrigationSystemRepository;
 import com.ecommerce.projectd.services.interfaces.IIrrigationSystemService;
 import com.ecommerce.projectd.services.interfaces.IRabbitPublisherService;
 import com.ecommerce.projectd.services.interfaces.IUserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

@@ -13,6 +13,8 @@ import com.ecommerce.projectd.controllers.dtos.response.BaseResponse;
 import com.ecommerce.projectd.entities.User;
 import com.ecommerce.projectd.services.interfaces.IAWSService;
 import jakarta.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,9 +27,7 @@ import java.util.Objects;
 
 @Service
 public class AWSServiceImpl implements IAWSService {
-    private AmazonS3 s3client;
-
-
+    
     private AmazonS3 s3Client;
 
     @Value(value = "${aws.endpoint-url-s3}")
@@ -42,6 +42,7 @@ public class AWSServiceImpl implements IAWSService {
     @Value(value = "${aws.access-key-s3}")
     private String accessKey;
 
+    @Autowired
     private final UserServiceImpl userService;
 
 
@@ -52,7 +53,6 @@ public class AWSServiceImpl implements IAWSService {
     @Override
     public BaseResponse uploadProfilePicture(MultipartFile multipartFile, Long idUser) {
         User user = userService.getUser(idUser);
-        String awsPath = "persons/users/" + user.getEmail() + "/profile_picture/";
         String fileUrl;
 
         try{

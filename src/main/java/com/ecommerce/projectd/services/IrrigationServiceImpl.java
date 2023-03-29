@@ -12,7 +12,6 @@ import com.ecommerce.projectd.entities.User;
 import com.ecommerce.projectd.entities.projection.IrrigationProjection;
 import com.ecommerce.projectd.repositories.IIrrigationRepository;
 import com.ecommerce.projectd.services.interfaces.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -34,9 +33,6 @@ public class IrrigationServiceImpl implements IIrrigationService {
     @Autowired
     private ISNSService snsService;
 
-
-    @Autowired
-    private IUserService userService;
 
     @Autowired
     private IRabbitPublisherService rabbitPublisherService;

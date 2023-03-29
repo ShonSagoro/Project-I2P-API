@@ -26,9 +26,9 @@ public class UserServiceImpl implements IUserService{
     @Autowired
     private ISNSService snsService;
 
+    @Autowired
     private final IUserRepository repository;
 
-    @Autowired
     public UserServiceImpl(IUserRepository repository) {
         this.repository = repository;
     }

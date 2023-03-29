@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("user")
 public class UserController {
 
+    @Autowired
     private final IUserService service;
 
-    @Autowired
     public UserController(IUserService service){
         this.service = service;
     }
 
-    @PostMapping("get   /email")
+    @PostMapping("get/email")
     public ResponseEntity<BaseResponse> get(@RequestBody LoginRequest request){
         BaseResponse response = service.get(request);
         return new ResponseEntity<>(response, response.getHttpStatus());
